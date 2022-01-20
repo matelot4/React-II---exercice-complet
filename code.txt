@@ -57,6 +57,68 @@ export default Liste;
 ---------------Liste.js   avec useReducer  ----------------
 
 
+import { useReducer } from 'react';
+import classes from "./List.module.css";
+
+
+function reducer(state, action){
+  switch (action.type){
+    case 'prendre':
+      return { count: state.count + 1};
+    case 'retirer':
+      if (state.count <= 0 ){
+        return { count: state.count = 0}
+      } else {
+        return {count: state.count - 1}
+      }
+    case 'remiseZero':
+      return {count: state.count = 0}
+      default: 
+      return state;
+  }
+}
+
+function Liste(props) {
+
+  const [state, dispatch] = useReducer(reducer, {count: 0});
+
+  function prendreIngredient(){
+    dispatch({type: 'prendre'})
+  }
+
+  function retirerIngredient(){
+    dispatch({type: 'retirer'})
+  }
+
+  function ajouterChaudron(){
+    dispatch({type: 'remiseZero'})
+  }
+
+
+  const mesIngredients = props.potionsMagiques[0].ingredients;
+  const maListeIngredients = mesIngredients.map((ingredient) => (
+    <li key={Math.random().toString()}>
+      {ingredient}
+      <div className={classes.liste}>
+        <button onClick={prendreIngredient}>Prendre</button>
+        <button onClick={retirerIngredient}>Retirer</button>
+      </div>
+    </li>
+  ));
+
+
+
+  return (
+    <div className={classes.liste}>
+      <h2>Mes ingredients</h2>
+      <ul>{maListeIngredients}</ul>
+      <span>Nombre d'ingrédients sur la table: {state.count} </span>
+      <button className={classes.ajoutChaudron} onClick={ajouterChaudron}>Ajouter au chaudron</button>
+    </div>
+  );
+}
+
+export default Liste;
 
 
 

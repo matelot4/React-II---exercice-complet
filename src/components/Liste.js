@@ -1,6 +1,7 @@
 import classes from "./List.module.css";
 
 function Liste(props) {
+
   const mesIngredients = props.potionsMagiques[0].ingredients;
   const maListeIngredients = mesIngredients.map((ingredient) => (
     <li key={Math.random().toString()}>
@@ -12,11 +13,13 @@ function Liste(props) {
     </li>
   ));
 
+
+
   return (
     <div className={classes.liste}>
       <h2>Mes ingredients</h2>
       <ul>{maListeIngredients}</ul>
-      <span>Nombre d'ingrédients sur la table:</span>
+      <span>Nombre d'ingrédients sur la table: </span>
       <button className={classes.ajoutChaudron}>Ajouter au chaudron</button>
     </div>
   );
